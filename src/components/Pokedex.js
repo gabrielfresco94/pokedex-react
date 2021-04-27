@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Pagination from "./Pagination";
 import Pokemon from "./Pokemon";
 
 const HeaderPokedex = styled.div`
@@ -17,18 +18,36 @@ const PokedexGrid = styled.div`
   padding: 0px 10px;
 `;
 
-const Pokedex = ({ pokemons }) => {
+const Pokedex = ({ pokemons, page, setPage, total, loading }) => {
+  const lastPage = () => {
+    const nextPage = Math.max(page - 1, 0);
+    setPage(nextPage);
+  };
+
+  const nextPage = () => {
+    const nextPage = Math.min(page + 1, total);
+    setPage(nextPage);
+  };
   return (
     <div>
       <HeaderPokedex>
         <h1>Pokedex</h1>
-        <div>Pagination</div>
+        <Pagination
+          page={page + 1}
+          totalPages={total}
+          lastPage={lastPage}
+          nextPage={nextPage}
+        />
       </HeaderPokedex>
-      <PokedexGrid>
-        {pokemons.map((pokemon, index) => {
-          return <Pokemon pokemon={pokemon} key={pokemon.name} />;
-        })}
-      </PokedexGrid>
+      {loading ? (
+        <div>Cargando Pokemones...</div>
+      ) : (
+        <PokedexGrid>
+          {pokemons.map((pokemon, index) => {
+            return <Pokemon pokemon={pokemon} key={pokemon.name} />;
+          })}
+        </PokedexGrid>
+      )}
     </div>
   );
 };

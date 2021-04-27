@@ -64,7 +64,7 @@ const Pokemon = ({ pokemon }) => {
               return <div key={index}>{type.type.name}</div>;
             })}
           </PokemonType>
-          <PokemonFavorite>💜</PokemonFavorite>
+          <PokemonFavorite>&#10084;&#65039;</PokemonFavorite>
         </CardBottom>
       </CardBody>
     </PokemonCard>
