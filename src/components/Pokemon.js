@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import FavoriteContext from "../../contexts/favoritesContext";
 
 const PokemonCard = styled.div`
   display: flex;
@@ -48,6 +49,19 @@ const PokemonType = styled.div`
 `;
 const PokemonFavorite = styled.div``;
 const Pokemon = ({ pokemon }) => {
+  const { favoritePokemons, updateFavoritePokemons } = useContext(
+    FavoriteContext
+  );
+  const redHearth = "❤️";
+  const blackHearth = "🖤";
+  const hearth = favoritePokemons.includes(pokemon.name)
+    ? redHearth
+    : blackHearth;
+
+  const clickHearth = (e) => {
+    e.preventDefault();
+    updateFavoritePokemons(pokemon.name);
+  };
   return (
     <PokemonCard>
       <div>
@@ -64,7 +78,9 @@ const Pokemon = ({ pokemon }) => {
               return <div key={index}>{type.type.name}</div>;
             })}
           </PokemonType>
-          <PokemonFavorite>&#10084;&#65039;</PokemonFavorite>
+          <button onClick={clickHearth}>
+            <PokemonFavorite>{hearth}</PokemonFavorite>
+          </button>
         </CardBottom>
       </CardBody>
     </PokemonCard>
