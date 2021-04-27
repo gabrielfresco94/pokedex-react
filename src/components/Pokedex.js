@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Pokemon from "./Pokemon";
 
 const HeaderPokedex = styled.div`
   display: flex;
@@ -11,8 +12,9 @@ const HeaderPokedex = styled.div`
 
 const PokedexGrid = styled.div`
   display: grid;
-  grid-auto-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 18px;
+  padding: 0px 10px;
 `;
 
 const Pokedex = ({ pokemons }) => {
@@ -24,7 +26,7 @@ const Pokedex = ({ pokemons }) => {
       </HeaderPokedex>
       <PokedexGrid>
         {pokemons.map((pokemon, index) => {
-          return <div>{pokemon.name}</div>;
+          return <Pokemon pokemon={pokemon} key={pokemon.name} />;
         })}
       </PokedexGrid>
     </div>
